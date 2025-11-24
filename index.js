@@ -14,7 +14,6 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
     path: "config/.env",
   });
 }
-
 // connect db
 connectDatabase();
 

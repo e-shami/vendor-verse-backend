@@ -5,23 +5,9 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://vendor-verse-phi.vercel.app',
-  'https://vendor-verse.vercel.app'
-];
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-        return callback(new Error(msg), false);
-      }
-      return callback(null, true);
-    },
+    origin: ["https://vendor-verse-phi.vercel.app/"],
     credentials: true,
   })
 );
@@ -53,25 +39,16 @@ const conversation = require("./controller/conversation");
 const message = require("./controller/message");
 const withdraw = require("./controller/withdraw");
 
-// Define route handlers for both prefixed and non-prefixed routes
-const apiRoutes = [
-  { path: '/user', handler: user },
-  { path: '/conversation', handler: conversation },
-  { path: '/message', handler: message },
-  { path: '/order', handler: order },
-  { path: '/shop', handler: shop },
-  { path: '/product', handler: product },
-  { path: '/event', handler: event },
-  { path: '/coupon', handler: coupon },
-  { path: '/payment', handler: payment },
-  { path: '/withdraw', handler: withdraw },
-];
-
-// Register routes with both /api/v2 prefix and without it
-apiRoutes.forEach(route => {
-  app.use(`/api/v2${route.path}`, route.handler);
-  app.use(route.path, route.handler);
-});
+app.use("/user", user);
+app.use("/conversation", conversation);
+app.use("/message", message);
+app.use("/order", order);
+app.use("/shop", shop);
+app.use("/product", product);
+app.use("/event", event);
+app.use("/coupon", coupon);
+app.use("/payment", payment);
+app.use("/withdraw", withdraw);
 
 // it's for ErrorHandling
 app.use(ErrorHandler);
