@@ -35,8 +35,10 @@ router.post("/create-user", async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
 
-    // const activationUrl = `${(process.env.NODE_ENV !== "PRODUCTION") ? "http://localhost:3000" : "https://vendor-verse-phi.vercel.app"}/seller/activation/${activationToken}`;
-    const activationUrl = `https://vendor-verse-phi.vercel.app/seller/activation/${activationToken}`;
+    const activationUrl = `${process.env.NODE_ENV?.toLocaleLowerCase() !== "production" ? "http://localhost:3000" : "https://vendor-verse-phi.vercel.app"}/seller/activation/${activationToken}`;
+    // const activationUrl = `https://vendor-verse-phi.vercel.app/seller/activation/${activationToken}`;
+
+    console.log("activation url in ", process.env.NODE_ENV?.toLocaleLowerCase(), activationUrl)
 
 
     try {

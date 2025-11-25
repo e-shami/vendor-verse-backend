@@ -42,7 +42,7 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 
 // config
-if (process.env.NODE_ENV !== "PRODUCTION") {
+if (process.env.NODE_ENV?.toLocaleLowerCase() !== "production") {
   require("dotenv").config({
     path: "config/.env",
   });

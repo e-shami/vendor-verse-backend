@@ -9,7 +9,7 @@ process.on("uncaughtException", (err) => {
 });
 
 // config
-if (process.env.NODE_ENV !== "PRODUCTION") {
+if (process.env.NODE_ENV?.toLocaleLowerCase() !== "production") {
   require("dotenv").config({
     path: "config/.env",
   });
